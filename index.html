@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#EDE6DE">
+  <title>Ivia & Mauricio · 19.12.2026</title>
+  <meta name="description" content="Te invitamos a ser parte de nuestro gran día.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Italianno&family=Marcellus&display=swap" rel="stylesheet">
+  <script>
+    // Detectar la entrada desde el PDF antes de que el navegador pinte la portada.
+    (function () {
+      var abrir = (new URLSearchParams(window.location.search).get('abrir') || '').trim().toLowerCase();
+      if (['1', 'true', 'si', 'sí'].includes(abrir)) {
+        document.documentElement.classList.add('direct-entry');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="locked">
+  <div id="cover" class="cover" aria-label="Abrir invitación">
+    <div class="cover-bg"></div>
+    <div class="cover-copy">
+      <button id="sealButton" class="seal-button" type="button" aria-label="Abrir invitación">
+        <img src="assets/decor/sello-im.png" alt="Sello I y M">
+      </button>
+      <p class="cover-instruction">DALE CLIC AL SELLO PARA INGRESAR A LA INVITACIÓN</p>
+      <p class="cover-small">Atentamente:</p>
+      <p class="cover-names">Ivia & Mauricio</p>
+    </div>
+  </div>
+
+  <button id="musicButton" class="music-button" type="button" aria-label="Reproducir o pausar música" hidden>
+    <span class="music-note">♪</span>
+  </button>
+  <p id="musicHint" class="music-hint" hidden>Toca cualquier parte para activar la música</p>
+  <audio id="music" loop preload="none"></audio>
+
+  <main id="invitation" aria-hidden="true">
+    <section class="hero split">
+      <div class="hero-photo photo-parallax"></div>
+      <div class="hero-copy reveal">
+        <p class="eyebrow">¡NOS CASAMOS!</p>
+        <h1>Ivia <span>&</span> Mauricio</h1>
+        <img class="icon ring-icon" src="assets/icons/anillos.gif" alt="Anillos">
+        <p class="quote">El amor es el acto más valiente, elegir<br class="desktop"> a alguien no solo para caminar juntos, sino<br class="desktop"> para construir sentido en cada paso, mientras<br class="desktop"> convertimos nuestro amor en promesa de vida.</p>
+      </div>
+      <div class="mountain-divider bottom" aria-hidden="true"></div>
+    </section>
+
+
+    <section class="personal-invite wave-section decorative-sides">
+      <div class="wave-svg wave-top" aria-hidden="true"><svg viewBox="0 0 1000 100" preserveAspectRatio="none"><path opacity=".33" d="M473,67.3c-203.9,88.3-263.1-34-320.3,0C66,119.1,0,59.7,0,59.7V0h1000v59.7c0,0-62.1,26.1-94.9,29.3c-32.8,3.3-62.8-12.3-75.8-22.1C806,49.6,745.3,8.7,694.9,4.7S492.4,59,473,67.3z"/><path opacity=".66" d="M734,67.3c-45.5,0-77.2-23.2-129.1-39.1c-28.6-8.7-150.3-10.1-254,39.1s-91.7-34.4-149.2,0C115.7,118.3,0,39.8,0,39.8V0h1000v36.5c0,0-28.2-18.5-92.1-18.5C810.2,18.1,775.7,67.3,734,67.3z"/><path d="M766.1,28.9c-200-57.5-266,65.5-395.1,19.5C242,1.8,242,5.4,184.8,20.6C128,35.8,132.3,44.9,89.9,52.5C28.6,63.7,0,0,0,0h1000c0,0-9.9,40.9-83.6,48.1S829.6,47,766.1,28.9z"/></svg></div>
+      <div class="personal-inner reveal">
+        <p>Nuestro gran día se aproxima y<br>nos encantaría que formaras<br>parte de él. Nos hace mucha ilusión<br>invitarte a nuestra boda.</p>
+        <h2 id="inviteGuestName">Invitado Especial</h2>
+        <p>Para lo que hemos reservado:</p>
+        <strong id="invitePassCount">1</strong>
+        <p>Pase(s) en tu honor</p>
+      </div>
+      <div class="wave-svg wave-bottom" aria-hidden="true"><svg viewBox="0 0 1000 100" preserveAspectRatio="none"><path opacity=".33" d="M473,67.3c-203.9,88.3-263.1-34-320.3,0C66,119.1,0,59.7,0,59.7V0h1000v59.7c0,0-62.1,26.1-94.9,29.3c-32.8,3.3-62.8-12.3-75.8-22.1C806,49.6,745.3,8.7,694.9,4.7S492.4,59,473,67.3z"/><path opacity=".66" d="M734,67.3c-45.5,0-77.2-23.2-129.1-39.1c-28.6-8.7-150.3-10.1-254,39.1s-91.7-34.4-149.2,0C115.7,118.3,0,39.8,0,39.8V0h1000v36.5c0,0-28.2-18.5-92.1-18.5C810.2,18.1,775.7,67.3,734,67.3z"/><path d="M766.1,28.9c-200-57.5-266,65.5-395.1,19.5C242,1.8,242,5.4,184.8,20.6C128,35.8,132.3,44.9,89.9,52.5C28.6,63.7,0,0,0,0h1000c0,0-9.9,40.9-83.6,48.1S829.6,47,766.1,28.9z"/></svg></div>
+    </section>
+
+    <section class="date-section section-pad decorative-sides">
+      <img class="side-decoration side-decoration--right" src="assets/decor/lateral-derecha.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <div class="narrow reveal">
+        <p class="intro">Queremos que nos<br>acompañes en nuestro día</p>
+        <div class="date-grid">
+          <div class="date-side date-month">Diciembre</div>
+          <div class="date-day">19</div>
+          <div class="date-side date-year">2026</div>
+        </div>
+        <p class="weekday">Sábado</p>
+        <p class="date-time-below">14:30 hrs.</p>
+        <img class="icon calendar-icon" src="assets/icons/calendario.gif" alt="Calendario">
+        <p class="script-title small-script">Faltan</p>
+        <div id="countdown" class="countdown" aria-live="polite">
+          <div><strong id="days">--</strong><span>Días</span></div>
+          <div><strong id="hours">--</strong><span>Hrs.</span></div>
+          <div><strong id="minutes">--</strong><span>Min.</span></div>
+          <div><strong id="seconds">--</strong><span>Seg.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="parents section-pad soft decorative-sides">
+      <img class="side-decoration side-decoration--left" src="assets/decor/lateral-izquierda.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <div class="narrow reveal">
+        <h2 class="caps-heading">CON LA BENDICIÓN DE DIOS<br>Y DE NUESTROS PADRES</h2>
+        <div class="parents-stack">
+          <div class="parent-group"><h3>Padres del Novio</h3><p>ROLANDO PEDRO FERNANDEZ VEIZAGA <span class="cross" aria-label="fallecido">(†)</span><br>MIRTHA ROJAS ARZE</p></div>
+          <div class="parent-group"><h3>Padres de la Novia</h3><p>GILBERT ORTIZ MEZA<br>MIREYA ROXANA LEDEZMA ZAMBRANA</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="love-copy section-pad decorative-sides">
+      <img class="side-decoration side-decoration--right" src="assets/decor/lateral-derecha.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <div class="narrow reveal">
+        <p>Contamos los días con el corazón rebosante<br class="desktop"> de ilusión y gratitud, tras un camino lleno de<br class="desktop"> amor, aprendizajes y sueños compartidos.<br>Hoy, con el alma llena de esperanza, aguardamos<br class="desktop"> el momento de unir nuestras vidas ante Dios y<br class="desktop"> celebrar este paso sagrado junto a quienes han sido parte de nuestra historia.<br>Con todo nuestro cariño, los esperamos.</p>
+      </div>
+    </section>
+
+    <section class="events section-pad soft decorative-sides">
+      <img class="side-decoration side-decoration--left" src="assets/decor/lateral-izquierda.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <div class="cards narrow-wide">
+        <article class="event-card reveal">
+          <img src="assets/icons/ceremonia.gif" alt="Ceremonia">
+          <h2>Ceremonia Religiosa</h2>
+          <p class="event-time">14:30 hrs.</p>
+          <p>El Bosque Sur</p>
+          <button class="map-button pulse" data-map type="button">VER UBICACIÓN</button>
+        </article>
+        <article class="event-card reveal">
+          <img src="assets/icons/recepcion.gif" alt="Recepción">
+          <h2>Recepción Social</h2>
+          <p class="event-time">16:30 hrs.</p>
+          <p>El Bosque Sur</p>
+          <button class="map-button pulse" data-map type="button">VER UBICACIÓN</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="dress section-pad">
+      <div class="mountain-divider top" aria-hidden="true"></div>
+      <div class="narrow reveal">
+        <h2 class="script-title">Código de Vestimenta</h2>
+        <div class="dress-grid">
+          <div><img src="assets/icons/vestido.gif" alt="Vestido"><h3>Damas</h3><p>Vestimenta Elegante</p></div>
+          <div><img src="assets/icons/traje.gif" alt="Traje"><h3>Varones</h3><p>Traje Formal</p></div>
+        </div>
+        <p class="white-note">Les recordamos que el color blanco<br>está reservado para la novia.</p>
+      </div>
+      <div class="mountain-divider bottom" aria-hidden="true"></div>
+    </section>
+
+    <section class="timeline section-pad decorative-sides">
+      <img class="side-decoration side-decoration--right" src="assets/decor/lateral-derecha.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <h2 class="script-title reveal">Itinerario</h2>
+      <div class="timeline-grid narrow-wide">
+        <div class="timeline-item reveal"><img src="assets/icons/ceremonia.gif" alt=""><p>CEREMONIA</p><strong>14:30</strong></div>
+        <div class="timeline-item reveal"><img src="assets/icons/recepcion.gif" alt=""><p>RECEPCIÓN</p><strong>16:30</strong></div>
+        <div class="timeline-item reveal"><img src="assets/icons/torta.gif" alt=""><p>FIESTA</p><strong>19:00</strong></div>
+        <div class="timeline-item reveal"><img src="assets/icons/fin.gif" alt=""><p>FIN DE LA FIESTA</p><strong>01:00</strong></div>
+      </div>
+    </section>
+
+    <section class="punctual section-pad soft decorative-sides">
+      <img class="side-decoration side-decoration--left" src="assets/decor/lateral-izquierda.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <div class="punctual-card reveal">
+        <img src="assets/icons/reloj.gif" alt="Reloj">
+        <p>La fiesta comenzará puntualmente, y queremos<br class="desktop"> que disfrutes con nosotros de cada detalle.<br>¡Te agradeceríamos que llegues a tiempo!</p>
+      </div>
+    </section>
+
+    <section class="us-gallery section-pad">
+      <img class="botanical botanical-right" src="assets/decor/hojas-secas-3.png" alt="" aria-hidden="true">
+      <div class="gallery-inner reveal">
+        <h2 class="script-title us-title">Nosotros</h2>
+        <div class="photo-grid" aria-label="Galería de fotos de Ivia y Mauricio">
+          <figure><img src="assets/photos/CFER9537.jpg" alt="Ivia y Mauricio"></figure>
+          <figure><img src="assets/photos/CFER9908.jpg" alt="Ivia y Mauricio"></figure>
+          <figure><img src="assets/photos/CFER9975.jpg" alt="Ivia y Mauricio"></figure>
+          <figure><img src="assets/photos/CFER9985.jpg" alt="Ivia y Mauricio"></figure>
+          <figure><img src="assets/photos/CFER9780.jpg" alt="Ivia y Mauricio"></figure>
+          <figure><img src="assets/photos/CFER9586.jpg" alt="Ivia y Mauricio"></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="share-photos section-pad decorative-sides">
+      <img class="side-decoration side-decoration--right" src="assets/decor/lateral-derecha.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <div class="share-card reveal">
+        <img src="assets/icons/camara.gif" alt="Cámara" class="camera-icon">
+        <p>TE INVITAMOS A COMPARTIR<br>LOS MOMENTOS MÁS ESPECIALES<br>DE NUESTRO EVENTO A TRAVÉS<br>DE TUS FOTOGRAFÍAS.</p>
+        <button id="sharePhotosButton" class="share-button pulse" type="button">↥&nbsp; COMPARTIR FOTOS</button>
+        <p id="sharePhotosStatus" class="share-status" role="status"></p>
+      </div>
+    </section>
+
+    <section class="gift section-pad decorative-sides">
+      <div class="narrow reveal">
+        <img class="gift-icon" src="assets/icons/regalo.gif" alt="Regalo">
+        <h2 class="script-title">Sugerencia de Regalos</h2>
+        <p class="gift-intro">Su presencia en este día tan especial es nuestro mayor regalo. Como comenzaremos esta nueva etapa lejos de casa, si desean tener un detalle con nosotros, hemos dispuesto la siguiente opción.</p>
+        <div class="gift-options" aria-label="Opciones para regalos">
+          <article class="gift-option gift-envelope-option">
+            <img class="gift-envelope" src="assets/icons/sobre-regalo-beige.gif" alt="Sobre para regalos" loading="lazy">
+            <h3> ¡LLUVIA DE SOBRES!</h3>
+            <p class="gift-option-detail">(HABRÁ UN BUZÓN EN LA RECEPCIÓN)</p>
+          </article>
+          <article class="gift-option gift-qr-option">
+            <img class="gift-qr" src="assets/regalos/qr-bnb-escaneable.png" alt="Código QR BNB para un regalo a Ivia y Mauricio" loading="lazy">
+            <h3>CUENTA BANCARIA BNB</h3>
+            <p class="gift-option-detail">Cuenta: 3501499616</p>
+            <p class="gift-option-holder">Fernandez Rojas Mauricio</p>
+          </article>
+        </div>
+        <div class="gift-extra-note">
+          <h3>Un detalle especial</h3>
+          <p>Sin embargo, recibiremos con mucho cariño cualquier otro regalo o detalle que deseen compartir con nosotros.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="rsvp section-pad soft decorative-sides" id="rsvp">
+      <img class="side-decoration side-decoration--right" src="assets/decor/lateral-derecha.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <div class="narrow reveal">
+        <h2 class="script-title">Confirma Tu Asistencia</h2>
+        <p class="rsvp-lead"><span class="rsvp-intro-line">Nos encantará compartir este día contigo.</span><br><span class="rsvp-deadline-words">CONFIRMA HASTA EL </span><strong><span class="rsvp-date-number">13</span> <span class="rsvp-deadline-words">DE NOVIEMBRE DE</span> <span class="rsvp-date-number">2026</span></strong>.</p>
+        <div class="guest-card"><span>Invitación para</span><strong id="guestName">Invitado Especial</strong><small id="passLabel">1 pase asignado</small></div>
+        <form id="rsvpForm" novalidate>
+          <input type="hidden" id="guestId" name="guestId">
+          <input type="hidden" id="assignedPasses" name="assignedPasses">
+          <label>¿Podrás acompañarnos?
+            <select id="attendance" name="attendance" required>
+              <option value="">Selecciona una opción</option>
+              <option value="si">Sí, asistiré</option>
+              <option value="no">No podré asistir</option>
+            </select>
+          </label>
+          <label id="countWrap">Número de asistentes
+            <select id="confirmedCount" name="confirmedCount"></select>
+          </label>
+          <label>Mensaje para los novios <span>(opcional)</span>
+            <textarea id="message" name="message" rows="4" maxlength="500" placeholder="Escribe aquí..."></textarea>
+          </label>
+          <button class="submit-button pulse" type="submit">ENVIAR CONFIRMACIÓN</button>
+          <p id="formStatus" class="form-status" role="status"></p>
+        </form>
+        <p class="private-note">Tu confirmación se registrará de forma privada para los novios.</p>
+      </div>
+    </section>
+
+    <section class="closing section-pad decorative-sides">
+      <img class="branch" src="assets/decor/rama.png" alt="">
+      <div class="narrow reveal">
+        <p>"Uno solo puede ser vencido, pero dos pueden resistir.<br class="desktop">¡La cuerda de tres hilos no se rompe fácilmente!"<br>Eclesiastés 4:12</p>
+        <!-- <p class="caps-heading">CON TODO NUESTRO AMOR</p> -->
+        <h2 class="closing-names">Ivia & Mauricio</h2>
+        <p class="closing-date">19 · 12 · 2026</p>
+      </div>
+      <div class="closing-photo-frame">
+        <img class="closing-photo" src="assets/photos/CFER9903.jpg" alt="Ivia y Mauricio sentados en la banca" loading="lazy" decoding="async">
+      </div>
+    </section>
+  </main>
+
+  <dialog id="mapDialog" class="map-dialog">
+    <button id="closeMap" class="close-map" aria-label="Cerrar">×</button>
+    <div class="map-panel">
+      <h2>El Bosque Sur</h2>
+      <p>Ceremonia y recepción</p>
+      <a class="map-button" href="https://maps.app.goo.gl/MwuPKpaeTf4wF7tp6?g_st=iw" target="_blank" rel="noopener">ABRIR EN GOOGLE MAPS</a>
+    </div>
+  </dialog>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
