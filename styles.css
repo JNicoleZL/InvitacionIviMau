@@ -431,3 +431,26 @@ html.direct-entry body.locked{overflow-x:hidden;overflow-y:auto}
     font-size: 1.2rem;
   }
 }
+
+
+/* Control individual de confirmaciones */
+#rsvpForm[hidden],
+#rsvpClosed[hidden],
+#privateNote[hidden] {
+  display: none !important;
+}
+
+.rsvp-closed-message {
+  margin: 28px auto;
+  padding: 22px 24px;
+  max-width: 620px;
+  background: var(--white);
+  border: 1px solid var(--sand);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  color: var(--ink);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  text-align: center;
+}

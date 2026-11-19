@@ -9,13 +9,15 @@
   const rsvpForm = document.getElementById('rsvpForm');
   const submitButton = rsvpForm.querySelector('button[type="submit"]');
   const formStatus = document.getElementById('formStatus');
+  const rsvpClosed = document.getElementById('rsvpClosed');
+  const privateNote = document.getElementById('privateNote');
   const guestIdInput = document.getElementById('guestId');
   const assignedPassesInput = document.getElementById('assignedPasses');
   const attendance = document.getElementById('attendance');
   const countWrap = document.getElementById('countWrap');
   const confirmed = document.getElementById('confirmedCount');
 
-  let guest = { codigo: '', nombre: 'Invitado Especial', pases: 1, valid: false };
+  let guest = { codigo: '', nombre: 'Invitado Especial', pases: 1, valid: false, puedeConfirmar: false };
 
   function renderGuest() {
     document.getElementById('guestName').textContent = guest.nombre;
@@ -34,14 +36,35 @@
     }
   }
 
+  function mostrarConfirmacionCerrada(mensaje) {
+    rsvpForm.hidden = true;
+    if (rsvpClosed) {
+      rsvpClosed.textContent = mensaje;
+      rsvpClosed.hidden = false;
+    }
+    if (privateNote) privateNote.hidden = true;
+  }
+
+  function mostrarFormularioConfirmacion() {
+    rsvpForm.hidden = false;
+    if (rsvpClosed) rsvpClosed.hidden = true;
+    if (privateNote) privateNote.hidden = false;
+    submitButton.disabled = false;
+  }
+
   async function loadGuest() {
     const codigo = (qs.get('codigo') || '').trim().slice(0, 100);
 
+    // El formulario permanece oculto hasta validar el permiso en Apps Script.
+    rsvpForm.hidden = true;
+    if (rsvpClosed) rsvpClosed.hidden = true;
+    if (privateNote) privateNote.hidden = true;
+
     if (!codigo) {
-      guest = { codigo: '', nombre: 'Invitación no identificada', pases: 1, valid: false };
+      guest = { codigo: '', nombre: 'Invitación no identificada', pases: 1, valid: false, puedeConfirmar: false };
       renderGuest();
       submitButton.disabled = true;
-      formStatus.textContent = 'Este enlace no contiene un código privado de invitación válido.';
+      mostrarConfirmacionCerrada('Este enlace no contiene un código privado de invitación válido.');
       return;
     }
 
@@ -54,25 +77,41 @@
       const response = await fetch(url, { method: 'GET', cache: 'no-store', redirect: 'follow' });
       if (!response.ok) throw new Error('No se pudo consultar la invitación.');
       const data = await response.json();
+
       if (!data.ok || !data.nombre || !Number.isFinite(Number(data.pases))) {
         throw new Error(data.error || 'Invitación no encontrada.');
       }
 
       const pases = Math.max(1, Math.min(Number.parseInt(data.pases, 10), 20));
+      const puedeConfirmar = data.puedeConfirmar === true;
+
       guest = {
         codigo,
         nombre: String(data.nombre).trim().slice(0, 100),
         pases,
-        valid: true
+        valid: true,
+        puedeConfirmar
       };
+
       renderGuest();
-      submitButton.disabled = false;
-      formStatus.textContent = '';
+
+      if (puedeConfirmar) {
+        mostrarFormularioConfirmacion();
+        formStatus.textContent = '';
+      } else {
+        submitButton.disabled = true;
+        mostrarConfirmacionCerrada(
+          'El plazo para confirmar asistencia ha finalizado. Agradecemos mucho tu comprensión y esperamos compartir contigo este día tan especial.'
+        );
+      }
+
     } catch (error) {
-      guest = { codigo, nombre: 'Invitación no encontrada', pases: 1, valid: false };
+      guest = { codigo, nombre: 'Invitación no encontrada', pases: 1, valid: false, puedeConfirmar: false };
       renderGuest();
       submitButton.disabled = true;
-      formStatus.textContent = 'No pudimos verificar esta invitación. Revisa el enlace o inténtalo nuevamente.';
+      mostrarConfirmacionCerrada(
+        'No pudimos verificar el permiso de confirmación. Revisa el enlace o inténtalo nuevamente más tarde.'
+      );
     }
   }
 
@@ -237,6 +276,10 @@
       formStatus.textContent = 'No podemos registrar la respuesta porque la invitación no está verificada.';
       return;
     }
+    if (!guest.puedeConfirmar) {
+      mostrarConfirmacionCerrada('El plazo para confirmar asistencia ha finalizado. Agradecemos mucho tu comprensión y esperamos compartir contigo este día tan especial.');
+      return;
+    }
     if (!attendance.value) {
       formStatus.textContent = 'Selecciona si podrás acompañarnos.';
       return;
@@ -274,8 +317,15 @@
       confirmed.disabled = true;
       document.getElementById('message').disabled = true;
     } catch (error) {
-      submitButton.disabled = false;
-      formStatus.textContent = 'No pudimos registrar la respuesta. Revisa tu conexión e intenta nuevamente.';
+      const errorMessage = String(error && error.message ? error.message : '');
+      if (errorMessage.toLowerCase().includes('deshabilitada')) {
+        guest.puedeConfirmar = false;
+        submitButton.disabled = true;
+        mostrarConfirmacionCerrada('El plazo para confirmar asistencia ha finalizado. Agradecemos mucho tu comprensión y esperamos compartir contigo este día tan especial.');
+      } else {
+        submitButton.disabled = false;
+        formStatus.textContent = 'No pudimos registrar la respuesta. Revisa tu conexión e intenta nuevamente.';
+      }
     }
   });
 })();

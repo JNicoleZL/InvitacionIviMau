@@ -212,7 +212,8 @@
         <h2 class="script-title">Confirma Tu Asistencia</h2>
         <p class="rsvp-lead"><span class="rsvp-intro-line">Nos encantará compartir este día contigo.</span><br><span class="rsvp-deadline-words">CONFIRMA HASTA EL </span><strong><span class="rsvp-date-number">13</span> <span class="rsvp-deadline-words">DE NOVIEMBRE DE</span> <span class="rsvp-date-number">2026</span></strong>.</p>
         <div class="guest-card"><span>Invitación para</span><strong id="guestName">Invitado Especial</strong><small id="passLabel">1 pase asignado</small></div>
-        <form id="rsvpForm" novalidate>
+        <div id="rsvpClosed" class="rsvp-closed-message" role="status" aria-live="polite" hidden></div>
+        <form id="rsvpForm" novalidate hidden>
           <input type="hidden" id="guestId" name="guestId">
           <input type="hidden" id="assignedPasses" name="assignedPasses">
           <label>¿Podrás acompañarnos?
@@ -231,7 +232,7 @@
           <button class="submit-button pulse" type="submit">ENVIAR CONFIRMACIÓN</button>
           <p id="formStatus" class="form-status" role="status"></p>
         </form>
-        <p class="private-note">Tu confirmación se registrará de forma privada para los novios.</p>
+        <p id="privateNote" class="private-note" hidden>Tu confirmación se registrará de forma privada para los novios.</p>
       </div>
     </section>
 
